@@ -1,9 +1,9 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home} from './src/pages/Home';
-import {Header} from './src/pages/Header/Header';
-import {Cart} from './src/pages/Cart';
+import {Home} from './src/screens/Home';
+import {Header} from './src/screens/Header/Header';
+import {Cart} from './src/screens/Cart';
 import {createServer} from 'miragejs';
 import {CartProvider} from './src/hooks/useCart';
 
