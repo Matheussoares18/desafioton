@@ -67,14 +67,41 @@ export const Description = styled.Text`
   font-size: 11px;
   margin-top: 5px;
 `;
+export const CartQuantity = styled.Text`
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 5px;
+`;
 
+export const CardActionsContainer = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 export const AddCartButton = styled.TouchableOpacity`
   background: #008e5a;
   height: 40px;
+  flex: 1;
   display: flex;
   align-items: center;
 `;
 export const ButtonText = styled.Text`
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+`;
+export const RemoveCartButton = styled.TouchableOpacity`
+  background: red;
+  height: 40px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+export const RemoveButtonText = styled.Text`
   color: #fff;
   width: 100%;
   height: 100%;
