@@ -21,6 +21,7 @@ interface CartContextData {
   products: Product[];
   cart: Cart[];
   addProduct: (product: Product) => void;
+  addProductByUserInput: (product: Product, amount: number) => void;
   decreaseQuantity: (productId: number) => void;
   removeProduct: (productId: number) => void;
 }
@@ -42,9 +43,9 @@ export function CartProvider({children}: CardProviderProps) {
       productExists &&
       productExists.quantity < productExists.product.quantity
     ) {
-      /*if product already on cart and your quantity is lesser
+      /*if the product is already in cart and your quantity is lesser
        than product stock,
-       increase the quantity by one*/
+       increase the product quantity in cart by one*/
       productExists.quantity += 1;
       setCart(newCard);
       return;
@@ -57,9 +58,20 @@ export function CartProvider({children}: CardProviderProps) {
 
     setCart([...newCard, {product: product, quantity: 1}]);
   }
+  function addProductByUserInput(product: Product, amount: number) {
+    let newCard = [...cart];
+    const productExists = newCard.find(item => item.product.id === product.id);
+
+    if (productExists) {
+      productExists.quantity = amount;
+      setCart(newCard);
+      return;
+    }
+    setCart([...newCard, {product: product, quantity: amount}]);
+  }
 
   function decreaseQuantity(productId: number) {
-    //function to decrease cart's product quantity one by one
+    //function to decrease cart product quantity one by one
     const updatedCart = [...cart];
     const findItem = updatedCart.find(item => item.product.id === productId);
 
@@ -67,22 +79,29 @@ export function CartProvider({children}: CardProviderProps) {
       return;
     }
     if (findItem.quantity > 1) {
-      //if product cart's quantity is greater than 1, decrease the quantity by one
+      //if the product quantity in cart is greater than one, decrease the quantity by one
       findItem.quantity -= 1;
       setCart(updatedCart);
     } else {
-      //else, remove the product from the cart
+      //else, remove the product from cart
       setCart([...cart.filter(item => item.product.id !== productId)]);
     }
   }
   function removeProduct(productId: number) {
-    //function to remove completely a product from the cart
+    //function to remove completely a product from cart
     setCart([...cart.filter(cartItem => cartItem.product.id !== productId)]);
   }
 
   return (
     <CartContext.Provider
-      value={{products, cart, addProduct, decreaseQuantity, removeProduct}}>
+      value={{
+        products,
+        cart,
+        addProduct,
+        decreaseQuantity,
+        removeProduct,
+        addProductByUserInput,
+      }}>
       {children}
     </CartContext.Provider>
   );
