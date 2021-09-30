@@ -79,6 +79,7 @@ export const CardActionsContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
+
 export const AddCartButton = styled.TouchableOpacity`
   background: #008e5a;
   height: 40px;
@@ -86,6 +87,7 @@ export const AddCartButton = styled.TouchableOpacity`
   display: flex;
   align-items: center;
 `;
+
 export const ButtonText = styled.Text`
   color: #fff;
   width: 100%;

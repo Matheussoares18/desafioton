@@ -1,6 +1,7 @@
 import React from 'react';
 import {ImageSourcePropType} from 'react-native';
 import {Product, useCart} from '../../hooks/useCart';
+
 import {
   AddCartButton,
   ButtonText,
@@ -35,7 +36,12 @@ export function ProductCard({product, amount}: ProductCardProps) {
       <ProductInfosTop>
         <Title>{product.name}</Title>
         <Description>{product.description}</Description>
-        <Price>{product.price}</Price>
+        <Price>
+          {Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(product.price)}
+        </Price>
         <CartQuantity>{amount || 0} no carrinho</CartQuantity>
       </ProductInfosTop>
 
