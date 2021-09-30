@@ -1,24 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Container, ItemsContainer, ScrollViewContainer} from './styles';
 import Tenis from '../../assets/tennis.png';
 import {ProductCard} from '../../components/ProductCard';
+import axios from 'axios';
+import {useCart} from '../../hooks/useCart';
+
+interface CartItemsAmount {
+  [key: number]: number;
+}
 
 export function Home() {
+  const {products, cart} = useCart();
+
+  const cartItemsAmount = cart.reduce((sumAmount, product) => {
+    const newSumAmount = {...sumAmount};
+
+    newSumAmount[product.product.id] = product.quantity;
+
+    return newSumAmount;
+  }, {} as CartItemsAmount);
+
   return (
     <Container>
       <ScrollViewContainer>
         <ItemsContainer>
-          <ProductCard
-            product={{
-              description:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-              id: 1,
-              image: Tenis,
-              price: 'R$ 99.99',
-              title: 'Tenis de marca',
-            }}
-          />
+          {products.map(item => (
+            <ProductCard
+              amount={cartItemsAmount[item.id]}
+              product={item}
+              key={item.id}
+            />
+          ))}
         </ItemsContainer>
       </ScrollViewContainer>
     </Container>

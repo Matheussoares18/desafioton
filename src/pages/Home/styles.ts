@@ -14,6 +14,9 @@ export const Container = styled.View`
   padding-top: 35px;
 `;
 export const ScrollViewContainer = styled.ScrollView``;
+export const List = styled.FlatList`
+  width: 100%;
+`;
 
 export const ItemsContainer = styled.View`
   display: flex;
