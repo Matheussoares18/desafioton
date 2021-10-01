@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 
 import {Container, ItemsContainer, ScrollViewContainer} from './styles';
-import Tenis from '../../assets/tennis.png';
+
 import {ProductCard} from '../../components/ProductCard';
-import axios from 'axios';
+
 import {useCart} from '../../hooks/useCart';
 
 interface CartItemsAmount {
@@ -24,8 +24,8 @@ export function Home() {
   return (
     <Container>
       <ScrollViewContainer>
-        <ItemsContainer>
-          {products.map(item => (
+        <ItemsContainer testID="items-containter">
+          {products?.map(item => (
             <ProductCard
               amount={cartItemsAmount[item.id]}
               product={item}
