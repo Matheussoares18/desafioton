@@ -26,35 +26,7 @@ interface CardItemProps {
 }
 
 export function CartItem({product, amount}: CardItemProps) {
-  const {addProduct, decreaseQuantity, removeProduct, addProductByUserInput} =
-    useCart();
-
-  const [inputValue, setInputValue] = useState(0);
-
-  useEffect(() => {
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        if (!inputValue || inputValue === 0) {
-          Alert.alert('Falha ao alterar quantidade', 'Valor inválido');
-          setInputValue(amount);
-          return;
-        } else if (inputValue <= product.quantity) {
-          addProductByUserInput(product, Number(inputValue));
-        } else {
-          Alert.alert('Falha ao alterar quantidade', 'Quantidade indisponível');
-          setInputValue(amount);
-        }
-      },
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-    };
-  }, [inputValue, Keyboard]);
-  useEffect(() => {
-    setInputValue(amount);
-  }, [amount]);
+  const {addProduct, decreaseQuantity, removeProduct} = useCart();
 
   return (
     <Container>
@@ -71,22 +43,22 @@ export function CartItem({product, amount}: CardItemProps) {
             </Price>
           </RowContainer>
           <Actions>
-            <DecreaseQuantity onPress={() => decreaseQuantity(product.id)}>
+            <DecreaseQuantity
+              testID="decrease-button"
+              onPress={() => decreaseQuantity(product.id)}>
               <ChangeQuantityText>
                 <Icon name="minuscircleo" color="red" size={18} />{' '}
               </ChangeQuantityText>
             </DecreaseQuantity>
             <Input
-              defaultValue={String(inputValue)}
+              defaultValue={String(amount)}
               textAlignVertical="center"
               keyboardType="numeric"
-              testID="quantity-input"
-              onSubmitEditing={() => {
-                Keyboard.dismiss();
-              }}
-              onChangeText={e => setInputValue(Number(e))}
+              editable={false}
             />
-            <IncreaseQuantity onPress={() => addProduct(product)}>
+            <IncreaseQuantity
+              testID="increase-button"
+              onPress={() => addProduct(product)}>
               <ChangeQuantityText>
                 <Icon name="pluscircleo" color="#008e5a" size={18} />{' '}
               </ChangeQuantityText>
@@ -96,7 +68,9 @@ export function CartItem({product, amount}: CardItemProps) {
         </TitleAndActions>
       </LeftSide>
       <RightSide>
-        <RemoveButton onPress={() => removeProduct(product.id)}>
+        <RemoveButton
+          testID="remove-button"
+          onPress={() => removeProduct(product.id)}>
           <Icon name="close" color="red" size={20} />
         </RemoveButton>
       </RightSide>
