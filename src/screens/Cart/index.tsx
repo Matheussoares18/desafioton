@@ -48,6 +48,7 @@ export function Cart() {
       <Content>
         {cart.map(cartItem => (
           <CartItem
+            key={cartItem.product.id}
             product={cartItem.product}
             amount={cartItemsAmount[cartItem.product.id]}
           />
