@@ -62,7 +62,7 @@ export function CartItem({product, amount}: CardItemProps) {
         <ItemImage source={{uri: product.image}} resizeMode="contain" />
         <TitleAndActions>
           <RowContainer>
-            <ProductTitle>{product.name}</ProductTitle>
+            <ProductTitle testID="product-title">{product.name}</ProductTitle>
             <Price>
               {Intl.NumberFormat('pt-BR', {
                 style: 'currency',
@@ -80,6 +80,10 @@ export function CartItem({product, amount}: CardItemProps) {
               defaultValue={String(inputValue)}
               textAlignVertical="center"
               keyboardType="numeric"
+              testID="quantity-input"
+              onSubmitEditing={() => {
+                Keyboard.dismiss();
+              }}
               onChangeText={e => setInputValue(Number(e))}
             />
             <IncreaseQuantity onPress={() => addProduct(product)}>
