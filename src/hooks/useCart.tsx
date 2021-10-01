@@ -18,10 +18,8 @@ interface CardProviderProps {
   children: ReactNode;
 }
 export interface CartContextData {
-  products: Product[];
   cart: Cart[];
   addProduct: (product: Product) => void;
-  addProductByUserInput: (product: Product, amount: number) => void;
   decreaseQuantity: (productId: number) => void;
   removeProduct: (productId: number) => void;
 }
@@ -29,12 +27,7 @@ export interface CartContextData {
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({children}: CardProviderProps) {
-  const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<Cart[]>([]);
-
-  useEffect(() => {
-    api.get('/products').then(data => setProducts(data.data.products));
-  }, []);
 
   function addProduct(product: Product) {
     let newCard = [...cart];
@@ -51,17 +44,6 @@ export function CartProvider({children}: CardProviderProps) {
     }
 
     setCart([...newCard, {product: product, quantity: 1}]);
-  }
-  function addProductByUserInput(product: Product, amount: number) {
-    let newCard = [...cart];
-    const productExists = newCard.find(item => item.product.id === product.id);
-
-    if (productExists) {
-      productExists.quantity = amount;
-      setCart(newCard);
-      return;
-    }
-    setCart([...newCard, {product: product, quantity: amount}]);
   }
 
   function decreaseQuantity(productId: number) {
@@ -85,12 +67,10 @@ export function CartProvider({children}: CardProviderProps) {
   return (
     <CartContext.Provider
       value={{
-        products,
         cart,
         addProduct,
         decreaseQuantity,
         removeProduct,
-        addProductByUserInput,
       }}>
       {children}
     </CartContext.Provider>

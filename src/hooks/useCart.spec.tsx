@@ -1,6 +1,8 @@
 import React from 'react';
+import AxiosMock from 'axios-mock-adapter';
 import {renderHook, act} from '@testing-library/react-hooks';
 import {CartProvider, useCart} from './useCart';
+import api from '../services/api';
 
 describe('Cart Hook', () => {
   describe('addProduct()', () => {
@@ -58,13 +60,14 @@ describe('Cart Hook', () => {
         quantity: 2,
       };
 
-      act(() => result.current.addProductByUserInput(product, 2));
+      act(() => result.current.addProduct(product));
+      act(() => result.current.addProduct(product));
 
       expect(result.current.cart).toEqual([
         expect.objectContaining({product: product, quantity: 2}),
       ]);
     });
-    it('should add a specific quantity of the product to the cart when the product is in the cart', () => {
+    /*  it('should add a specific quantity of the product to the cart when the product is in the cart', () => {
       const {result} = renderHook(() => useCart(), {wrapper: CartProvider});
 
       const product = {
@@ -83,7 +86,7 @@ describe('Cart Hook', () => {
       expect(result.current.cart).toEqual([
         expect.objectContaining({product: product, quantity: 4}),
       ]);
-    });
+    }); */
   });
   describe('decreaseQuantity()', () => {
     it('should decrease the product quantity in the cart if the quantity that is already in cart is greater than one', () => {
@@ -98,7 +101,8 @@ describe('Cart Hook', () => {
         quantity: 5,
       };
 
-      act(() => result.current.addProductByUserInput(product, 2));
+      act(() => result.current.addProduct(product));
+      act(() => result.current.addProduct(product));
 
       act(() => result.current.decreaseQuantity(product.id));
 
@@ -118,7 +122,7 @@ describe('Cart Hook', () => {
         quantity: 5,
       };
 
-      act(() => result.current.addProductByUserInput(product, 1));
+      act(() => result.current.addProduct(product));
 
       act(() => result.current.decreaseQuantity(product.id));
 
