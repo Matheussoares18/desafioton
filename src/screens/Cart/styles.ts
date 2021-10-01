@@ -16,10 +16,11 @@ export const PageHeader = styled.Text`
   padding-left: 20px;
   width: 100%;
   text-align: left;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 20px;
-  font-style: italic;
-  margin-bottom: 35px;
+  font-family: 'Lato-Bold';
+
+  margin-bottom: 20px;
 `;
 export const TotalValueContainer = styled.View`
   padding-left: 20px;
@@ -31,15 +32,16 @@ export const TotalValueContainer = styled.View`
 `;
 export const TotalLabel = styled.Text`
   text-align: left;
-  font-weight: bold;
+  font-weight: 500;
+  font-family: 'Lato-Regular';
   font-size: 20px;
   margin-bottom: 35px;
 `;
 export const TotalValue = styled.Text`
   text-align: left;
-  font-weight: bold;
-  font-size: 20px;
-  font-style: italic;
+  font-weight: 600;
+  font-size: 25px;
+  font-family: 'Lato-Regular';
   margin-bottom: 35px;
   margin-left: 5px;
   color: #008e5a;

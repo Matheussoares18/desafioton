@@ -66,6 +66,7 @@ export const Description = styled.Text`
   text-align: center;
   font-size: 11px;
   margin-top: 5px;
+  font-family: 'Lato-Regular';
 `;
 export const CartQuantity = styled.Text`
   text-align: center;

@@ -60,7 +60,7 @@ export function CartProvider({children}: CardProviderProps) {
     setCart([...cart.filter(item => item.product.id !== productId)]);
   }
   function removeProduct(productId: number) {
-    //function to remove completely a product from cart
+    //function to remove a product from cart
     setCart([...cart.filter(cartItem => cartItem.product.id !== productId)]);
   }
 
