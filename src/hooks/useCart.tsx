@@ -17,7 +17,7 @@ interface Cart {
 interface CardProviderProps {
   children: ReactNode;
 }
-interface CartContextData {
+export interface CartContextData {
   products: Product[];
   cart: Cart[];
   addProduct: (product: Product) => void;
@@ -38,21 +38,15 @@ export function CartProvider({children}: CardProviderProps) {
 
   function addProduct(product: Product) {
     let newCard = [...cart];
-    const productExists = newCard.find(item => item.product.id === product.id);
-    if (
-      productExists &&
-      productExists.quantity < productExists.product.quantity
-    ) {
+    const cartItem = newCard.find(item => item.product.id === product.id);
+    if (cartItem && cartItem.quantity < cartItem.product.quantity) {
       /*if the product is already in cart and your quantity is lesser
        than product stock,
        increase the product quantity in cart by one*/
-      productExists.quantity += 1;
+      cartItem.quantity += 1;
       setCart(newCard);
       return;
-    } else if (
-      productExists &&
-      productExists.quantity >= productExists.product.quantity
-    ) {
+    } else if (cartItem && cartItem.quantity >= cartItem.product.quantity) {
       return;
     }
 
@@ -75,17 +69,13 @@ export function CartProvider({children}: CardProviderProps) {
     const updatedCart = [...cart];
     const findItem = updatedCart.find(item => item.product.id === productId);
 
-    if (!findItem) {
+    if (findItem!.quantity > 1) {
+      //if the product quantity in cart is greater than one, decrease the quantity by one
+      findItem!.quantity -= 1;
+      setCart(updatedCart);
       return;
     }
-    if (findItem.quantity > 1) {
-      //if the product quantity in cart is greater than one, decrease the quantity by one
-      findItem.quantity -= 1;
-      setCart(updatedCart);
-    } else {
-      //else, remove the product from cart
-      setCart([...cart.filter(item => item.product.id !== productId)]);
-    }
+    setCart([...cart.filter(item => item.product.id !== productId)]);
   }
   function removeProduct(productId: number) {
     //function to remove completely a product from cart
