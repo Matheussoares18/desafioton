@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 export const Item = styled.View`
   background: white;
-  width: ${() => (width - 45) / 2};
+  width: ${() => (width - 45) / 2}px;
   border-top-left-radius: 2px;
 
   margin-top: 10px;

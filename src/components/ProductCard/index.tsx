@@ -20,7 +20,7 @@ import {
 
 interface ProductCardProps {
   product: Product;
-  amount: number;
+  amount?: number;
 }
 
 export function ProductCard({product, amount}: ProductCardProps) {
@@ -29,7 +29,7 @@ export function ProductCard({product, amount}: ProductCardProps) {
     <Item>
       <ProductImage source={{uri: product.image}} resizeMode="cover" />
       <QuantityContainer>
-        <QuantityText>
+        <QuantityText testID="quantity-counter">
           {amount ? product.quantity - amount : product.quantity} disponíveis
         </QuantityText>
       </QuantityContainer>
@@ -42,16 +42,20 @@ export function ProductCard({product, amount}: ProductCardProps) {
             currency: 'BRL',
           }).format(product.price)}
         </Price>
-        <CartQuantity>{amount || 0} no carrinho</CartQuantity>
+        <CartQuantity testID="counter">{amount || 0} no carrinho</CartQuantity>
       </ProductInfosTop>
 
       <CardActionsContainer>
         {amount && (
-          <RemoveCartButton onPress={() => decreaseQuantity(product.id)}>
+          <RemoveCartButton
+            onPress={() => decreaseQuantity(product.id)}
+            testID="decrease-cart-button">
             <ButtonText style={{textAlignVertical: 'center'}}> - 1</ButtonText>
           </RemoveCartButton>
         )}
-        <AddCartButton onPress={() => addProduct(product)}>
+        <AddCartButton
+          onPress={() => addProduct(product)}
+          testID="add-cart-button">
           <ButtonText style={{textAlignVertical: 'center'}}>
             {amount ? '+ 1' : 'Adicionar ao carrinho'}
           </ButtonText>
